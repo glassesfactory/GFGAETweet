@@ -3,8 +3,9 @@ Created on 2011/03/21
 
 @author: MEGANE
 '''
-CONSUMER_KEY = 'mcMZvwz2IU8LeGwzlBu71Q'
-CONSUMER_SECRET = 'd2COjASlRI0ybJO74ob8gPmSzeyzCgMvF23ZVGchA'
-CALLBACK_URL = 'http://gf-gaetweet.appspot.com/oauth_cb'
+CONSUMER_KEY = 'キーを取得してきてください'
+CONSUMER_SECRET = 'キーを取得してきてください'
+CALLBACK_URL = 'Your app URL!'
+#for local
 #CALLBACK_URL = 'http://127.0.0.1:8080/oauth_cb'
 SESSION_EXPIRE = 300
