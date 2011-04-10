@@ -14,11 +14,6 @@ from models import TweetModel
 from pyamf.amf3 import ByteArray
 import urllib2
 
-class RequestToken(db.Model):
-    token_key = db.StringProperty(required=True)
-    token_secret = db.StringProperty(required=True)
-    
-   
 class TweetUtil(object):
     def load( self, sid ):
         access_token = memcache.get(sid)
@@ -28,7 +23,7 @@ class TweetUtil(object):
                 auth = tweepy.OAuthHandler( config.CONSUMER_KEY, config.CONSUMER_SECRET)
                 auth.set_access_token(access_token.key, access_token.secret)
                 api = tweepy.API(auth_handler = auth)
-                for tweet in tweepy.Cursor(api.home_timeline, count = 100).items(100):
+                for tweet in tweepy.Cursor(api.home_timeline).items(100):
                     model = TweetModel()
                     model.username = tweet.user.screen_name
                     model.status = tweet.text
@@ -38,6 +33,8 @@ class TweetUtil(object):
                 return models
             except:
                 return 'Error'
+        else:
+          return 'not Authed'
             
     def update(self, sid, text):
         access_token = memcache.get(sid)
@@ -54,7 +51,11 @@ class TweetUtil(object):
         if memcache.get(str(sid)):
             return True
         return False
-        
+
+
+class RequestToken(db.Model):
+    token_key = db.StringProperty(required=True)
+    token_secret = db.StringProperty(required=True)
 
 def oauth(request):
     auth = tweepy.OAuthHandler( config.CONSUMER_KEY, config.CONSUMER_SECRET, config.CALLBACK_URL)
