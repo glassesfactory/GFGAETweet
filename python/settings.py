@@ -33,7 +33,7 @@ DEFAULT_LANG = 'ja'
 INSTALLED_APPS = (
 'kay.sessions',
 'kay.auth',
-'twitter'
+'twitter',
 )
 
 APP_MOUNT_POINTS = {

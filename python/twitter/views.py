@@ -10,9 +10,12 @@ from twitterutil import TweetUtil
 from pyamf.remoting.gateway.wsgi import WSGIGateway
 
 # Create your views here.
-#import uuid
+import uuid
 
 def index(request):
+    cookie = request.session
+    if not cookie.has_key('sid'):
+        cookie['sid'] = str(uuid.uuid4())
     return render_to_response('twitter/index.html')
 
 def gateway(request):

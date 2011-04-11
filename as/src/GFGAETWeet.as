@@ -76,7 +76,11 @@ package
 			_amf.addEventListener( AsyncErrorEvent.ASYNC_ERROR, _asyncErrorHandler );
 			
 			//認証済みかチェック
-			_sid = CookieUtil.getCookie('KAY_SESSION').toString();
+			if( CookieUtil.getCookie('KAY_SESSION') != null )
+			{
+				_sid = CookieUtil.getCookie('KAY_SESSION').toString();
+			}
+			//_sid = 'KAY_SESSION';
 			_amf.addEventListener( GFAMFClientEvent.COMPLETE, _initHandler );
 			_amf.isAuth( _sid );
 			
@@ -134,7 +138,7 @@ package
 			_container = new Sprite();
 			_mask = new Sprite();
 			_mask.graphics.beginFill( 0 );
-			_mask.graphics.drawRect( 0, 0, 440, 400 );
+			_mask.graphics.drawRect( 0, 0, 440, 380 );
 			_mask.graphics.endFill();
 			
 			_container.mask = _mask;
@@ -142,26 +146,26 @@ package
 			//--- text input area ---
 			_textAreaBG = new Shape();
 			_textAreaBG.graphics.lineStyle( 1, 0x333333 );
-			_textAreaBG.graphics.drawRect( 0, 0, 385, 75 );
+			_textAreaBG.graphics.drawRect( 0, 0, 380, 75 );
 			_textAreaBG.graphics.endFill();
 			_textAreaBG.x = 5;
-			_textAreaBG.y = 405;
+			_textAreaBG.y = 385;
 			
 			_textArea = new TextField();
 			_textArea.type = TextFieldType.INPUT;
 			_textArea.multiline = true;
 			_textArea.wordWrap = true;
-			_textArea.width = 385;
+			_textArea.width = 380;
 			_textArea.height = 75;
 			_textArea.x = 5;
-			_textArea.y = 405;
+			_textArea.y = 385;
 			
 			addChild( _textAreaBG );
 			addChild( _textArea );
 			
 			_tweetBtn = new DoTweet();
-			_tweetBtn.x = 395;
-			_tweetBtn.y = 405;
+			_tweetBtn.x = 390;
+			_tweetBtn.y = 385;
 			_tweetBtn.buttonMode = true;
 			_tweetBtn.addEventListener(MouseEvent.MOUSE_OVER, function( e:MouseEvent ):void{ _tweetBtn.alpha = 0.7; });
 			_tweetBtn.addEventListener(MouseEvent.MOUSE_OUT, function( e:MouseEvent ):void{ _tweetBtn.alpha = 1; });
@@ -185,17 +189,17 @@ package
 			
 			_base = new Sprite();
 			_base.graphics.beginFill( 0, 0 );
-			_base.graphics.drawRect( 0, 0, 20, 400 );
+			_base.graphics.drawRect( 0, 0, 20, 380 );
 			_base.graphics.endFill();
 			
 			_slider = new Sprite();
 			_slider.graphics.beginFill( 0xff0000 );
-			_slider.graphics.drawRect( 0, 0, 20, 100 );
+			_slider.graphics.drawRect( 0, 0, 20, 200 );
 			_slider.graphics.endFill();
 			
 			_slideInner = new Shape();
 			_slideInner.graphics.beginFill( 0xffffff );
-			_slideInner.graphics.drawRect( 0, 0, 18, 98 );
+			_slideInner.graphics.drawRect( 0, 0, 18, 198 );
 			_slideInner.graphics.endFill();
 			_slideInner.x = 1;
 			_slideInner.y = 1;
@@ -255,6 +259,7 @@ package
 			_amf.removeEventListener(GFAMFClientEvent.COMPLETE, _loadedTweetHandler );
 			
 			var models:Array = e.result as Array;
+			if( !models ){ trace("Error"); }//エラー処理してね 
 			var yPos:Number = 5;
 			var isOdd:Boolean = false;
 			for( var i:int = 0;  i < models.length; i++ )
